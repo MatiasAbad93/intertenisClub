@@ -21,6 +21,7 @@
     <None Remove="Models\DTOs\" />
     <None Remove="IRepository\" />
     <None Remove="IServices\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -30,5 +31,6 @@
     <Folder Include="Models\DTOs\" />
     <Folder Include="IRepository\" />
     <Folder Include="IServices\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>

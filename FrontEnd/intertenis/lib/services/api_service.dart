@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io'; // Importación necesaria para HttpClient
+import 'dart:io';
 import '../models/user.dart';
 import 'package:flutter/foundation.dart';
 
@@ -26,6 +26,52 @@ class ApiService {
     return client;
   }
 
+  // Método para registrar usuario (nuevo)
+  static Future<Map<String, dynamic>> registerUser({
+    required String username,
+    required String password,
+    required String email,
+    required String nombre,
+    required String apellido,
+    required String dni,
+    required DateTime fechaNacimiento,
+  }) async {
+    try {
+      final HttpClient client = await _getHttpClient();
+      final HttpClientRequest request = await client.postUrl(
+        Uri.parse('$_baseUrl/api/Users/register') // Asegúrate que coincida con tu endpoint
+      );
+      
+      request.headers.add('Content-Type', 'application/json');
+      request.headers.add('Accept', 'application/json');
+      
+      // Estructura del payload según lo que espera tu backend
+      final Map<String, dynamic> userData = {
+        'username': username,
+        'password': password,
+        'email': email,
+        'nombre': nombre,
+        'apellido': apellido,
+        'dni': dni,
+        'fechaNacimiento': fechaNacimiento.toIso8601String(),
+      };
+      
+      request.write(jsonEncode(userData));
+      
+      final HttpClientResponse response = await request.close();
+      final String responseBody = await response.transform(utf8.decoder).join();
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return jsonDecode(responseBody);
+      } else {
+        throw Exception('Error al registrar usuario: ${response.statusCode} - $responseBody');
+      }
+    } catch (e) {
+      throw Exception('Error de conexión al registrar usuario: $e');
+    }
+  }
+
+  // Métodos existentes (los mantuvimos igual)
   static Future<List<User>> getUsers() async {
     try {
       final HttpClient client = await _getHttpClient();

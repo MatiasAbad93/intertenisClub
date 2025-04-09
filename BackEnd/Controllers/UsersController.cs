@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using IntertenisClub.Models;
 using IntertenisClub.BusinessLogic.Interfaces;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace IntertenisClub.Controllers;
 
@@ -15,6 +17,18 @@ public class UsersController : ControllerBase
         _userService = userService;
     }
 
+    // Endpoint para registro de usuarios
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(RegisterDto registerDto)
+    {
+        var result = await _userService.RegisterUserAsync(registerDto);
+
+        if (!result.Success)
+            return BadRequest(result.Message);
+
+        return Ok(result);
+    }
+
     [HttpGet]
     public async Task<List<User>> Get() =>
         await _userService.GetAllUsersAsync();
@@ -24,13 +38,6 @@ public class UsersController : ControllerBase
     {
         var user = await _userService.GetUserByIdAsync(id);
         return user is null ? NotFound() : user;
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Post(User newUser)
-    {
-        await _userService.CreateUserAsync(newUser);
-        return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
     }
 
     [HttpPut("{id}")]
