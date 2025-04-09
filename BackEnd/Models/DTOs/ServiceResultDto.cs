@@ -2,13 +2,13 @@
 {
     public class ServiceResult
     {
-        public bool Success { get; }
+        public bool Succeeded { get; }  // Changed from Success to Succeeded
         public string Message { get; }
         public object? Data { get; }
 
         private ServiceResult(bool success, string message, object? data)
         {
-            Success = success;
+            Succeeded = success;
             Message = message;
             Data = data;
         }

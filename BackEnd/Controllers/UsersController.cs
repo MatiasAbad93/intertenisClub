@@ -23,7 +23,7 @@ public class UsersController : ControllerBase
     {
         var result = await _userService.RegisterUserAsync(registerDto);
 
-        if (!result.Success)
+        if (!result.Succeeded)
             return BadRequest(result.Message);
 
         return Ok(result);

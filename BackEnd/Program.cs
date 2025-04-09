@@ -1,9 +1,9 @@
-using IntertenisClub.Models;
 using IntertenisClub.Repository;
-using IntertenisClub.BusinessLogic;
 using IntertenisClub.Repository.Interfaces;
 using IntertenisClub.BusinessLogic.Interfaces;
 using MongoDB.Driver;
+using IntertenisClub.BusinessLogic.Services;
+using IntertenisClub.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +14,7 @@ var database = client.GetDatabase(mongoSettings["DatabaseName"]);
 
 // Registro de dependencias (¡orden jerárquico!)
 builder.Services.AddSingleton<IMongoDatabase>(database); // Base de datos MongoDB
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>(); // Password hasher
 builder.Services.AddScoped<IUserRepository, UserRepository>(); // Capa Repository
 builder.Services.AddScoped<IUserService, UserService>(); // Capa BusinessLogic
 
