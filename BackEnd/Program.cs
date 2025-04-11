@@ -20,17 +20,17 @@ builder.Services.AddScoped<IUserService, UserService>(); // Capa BusinessLogic
 
 
 
-// Configuración CORS (permite conexiones desde Flutter)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFlutterApp",
         policy =>
         {
             policy.WithOrigins(
-                    "http://localhost", // Para Android emulador
-                    "http://localhost:5500", // Para web
-                    "http://10.0.2.2", // Para Android emulador (API local)
-                    "http://127.0.0.1" // Alternativa
+                    "http://localhost:7216",
+                    "http://10.0.2.2:7216",
+                    "http://127.0.0.1:7216",
+                    "https://localhost:7216", // Si eventualmente habilitas HTTPS
+                    "https://10.0.2.2:7216"  // Si eventualmente habilitas HTTPS
                 )
                 .AllowAnyHeader()
                 .AllowAnyMethod();
