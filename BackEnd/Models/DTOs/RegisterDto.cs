@@ -16,14 +16,14 @@ public class RegisterDto
     public string Email { get; set; } = null!;
 
     [Required]
-    public string Nombre { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
     [Required]
-    public string Apellido { get; set; } = null!;
+    public string LastName { get; set; } = null!;
 
     [Required]
     public string DNI { get; set; } = null!;
 
     [Required]
-    public DateTime FechaNacimiento { get; set; }
+    public DateTime BirthDate { get; set; }
 }

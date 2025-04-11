@@ -34,10 +34,10 @@ namespace IntertenisClub.BusinessLogic.Services
                 Password = passwordHash,
                 Salt = salt,
                 Email = registerDto.Email,
-                Nombre = registerDto.Nombre,
-                Apellido = registerDto.Apellido,
+                Nombre = registerDto.Name,
+                Apellido = registerDto.LastName,
                 DNI = registerDto.DNI,
-                FechaNacimiento = registerDto.FechaNacimiento,
+                FechaNacimiento = registerDto.BirthDate,
                 Rol = "Usuario"
             };
 
